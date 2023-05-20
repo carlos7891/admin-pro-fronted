@@ -8,6 +8,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         path: 'rxjs',
         component: RxjsComponent,
         data: { title:'Rxjs' }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { title:'User Profile' }
       }
     ]
   },

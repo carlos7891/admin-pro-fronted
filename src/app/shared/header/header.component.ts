@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -10,22 +9,16 @@ import Swal from 'sweetalert2';
   ]
 })
 export class HeaderComponent {
+  public user!: User;
 
   constructor(
     private userService: UserService,
-    private router: Router
-  ) { }
+  ) {
+    this.user = userService.user
+  }
 
   logout(){
     this.userService.logout();
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Logout Success',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    this.router.navigateByUrl('/login')
   }
 
 }

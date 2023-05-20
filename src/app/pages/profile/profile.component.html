@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">My user profile </h4>
+            <h6 class="card-subtitle">Settings</h6>
+            <form class="form p-t-20"
+                  [formGroup]="profileForm"
+                  (ngSubmit)="updateProfile()"
+            >
+                <div class="form-group">
+                    <label for="exampleInputuname">User Name</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                        <input type="text"
+                                class="form-control"
+                                id="exampleInputuname"
+                                placeholder="Name"
+                                formControlName="name"
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                        <input type="email"
+                                class="form-control"
+                                id="exampleInputEmail1"
+                                placeholder="Enter email"
+                                formControlName="email"
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pwd1">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-lock"></i></div>
+                        <input type="password"
+                              class="form-control"
+                              id="pwd1"
+                              placeholder="Password"
+                              formControlName="password"
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pwd2">Confirm Password</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-lock"></i></div>
+                        <input type="password"
+                                class="form-control"
+                                id="pwd2"
+                                placeholder="Enter email"
+                                formControlName="password2"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col text-danger">
+                    <p *ngIf="validField('name')">Field <strong>Name</strong> is not valid </p>
+                    <p *ngIf="validField('email')">Field <strong>Email</strong>  is not valid </p>
+                    <p *ngIf="validField('password')">Field <strong>Password</strong>  is not valid </p>
+                    <p *ngIf="confirmPassword()">Passwords does not match</p>
+                  </div>
+                </div>
+                <button type="submit"
+                        class="btn btn-success waves-effect waves-light m-r-10"
+
+                >
+                  Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Avatar</h4>
+        <h6 class="card-subtitle">User image</h6>
+        <img [src]="user.imageUrl" alt="">
+        <input type="file">
+        <br>
+        <br>
+        <button type="button" class="btn btn-success waves-effect waves-light m-r-10">Change Image</button>
+    </div>
+  </div>
+</div>

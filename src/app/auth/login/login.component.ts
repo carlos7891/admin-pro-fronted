@@ -18,7 +18,7 @@ export class LoginComponent implements AfterViewInit {
 
   public loginForm = this.fb.group({
     email:[localStorage.getItem('email') || '', [ Validators.required, Validators.email ]],
-    password:['', [ Validators.required, Validators.minLength(8) ]],
+    password:['', [ Validators.required, Validators.minLength(4) ]],
     remember:[ localStorage.getItem('remember') || false ]
   });
 
@@ -47,7 +47,7 @@ export class LoginComponent implements AfterViewInit {
     this.userService.loginGoogle(response.credential).subscribe({
       next: resp => {
         this.logingMessage(resp.msg);
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/dashboard');
       }
     })
   }
@@ -67,7 +67,7 @@ export class LoginComponent implements AfterViewInit {
           localStorage.removeItem('email')
           localStorage.removeItem('remember')
         }
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/dashboard');
       },
       error: err => {
         console.error('Observer got an error: ' + err)
