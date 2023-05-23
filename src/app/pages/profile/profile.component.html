@@ -32,7 +32,7 @@
                         >
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="!user.google">
                     <label for="pwd1">Password</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-lock"></i></div>
@@ -44,7 +44,7 @@
                         >
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="!user.google">
                     <label for="pwd2">Confirm Password</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="ti-lock"></i></div>
@@ -78,11 +78,20 @@
     <div class="card-body">
         <h4 class="card-title">Avatar</h4>
         <h6 class="card-subtitle">User image</h6>
-        <img [src]="user.imageUrl" alt="">
-        <input type="file">
+        <div class="text-center">
+          <img *ngIf="!imagePreview" [src]="user.imageUrl" alt="" class="profile-img">
+          <img *ngIf="imagePreview" [src]="imagePreview" alt="" class="profile-img">
+        </div>
+        <input type="file" (change)="changeImage($event.target)">
         <br>
         <br>
-        <button type="button" class="btn btn-success waves-effect waves-light m-r-10">Change Image</button>
+        <button type="button"
+                class="btn btn-success waves-effect waves-light m-r-10"
+                [disabled]="!file"
+                (click)="uploadImage()"
+        >
+          Change Image
+        </button>
     </div>
   </div>
 </div>

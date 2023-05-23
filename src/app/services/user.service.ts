@@ -22,6 +22,10 @@ export class UserService {
     return localStorage.getItem('token') || '';
   }
 
+  get uid():string {
+    return this.user.uid || '';
+  }
+
   constructor(
     private http:HttpClient,
     private router: Router
@@ -37,9 +41,7 @@ export class UserService {
   }
 
   updateProfile(formData: UpdateForm){
-    console.log(formData)
     if(!formData.password){
-      console.log(formData.password)
       delete formData.password;
     }
     return this.http.put(`${this.baseUrl}/users/${this.user.uid}`, formData,{
