@@ -7,6 +7,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { UpdateForm } from '../interfaces/update-form.interface';
+import { UsersResponse } from '../interfaces/response-users.interfaces';
 declare const google:any;
 
 
@@ -24,6 +25,14 @@ export class UserService {
 
   get uid():string {
     return this.user.uid || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        'x-token':this.token
+      }
+    }
   }
 
   constructor(
@@ -102,6 +111,21 @@ export class UserService {
       google.accounts.id.revoke(this.user.email, () => {})
     }
     this.router.navigateByUrl('/login');
+  }
+
+  getUsers( from: number = 0 ){
+    const url = `${this.baseUrl}/users?from=${from}`;
+    return this.http.get<UsersResponse>(url, this.headers)
+        .pipe(
+          map( resp => {
+            const users = resp.users.map(
+              user => new User(user.name, user.email, '' , user.img, user.google, user.role, user.uid))
+            return {
+              users: users,
+              total: resp.total
+            };
+          })
+        )
   }
 
 
