@@ -5,6 +5,8 @@
         <input type="text"
                 class="form-control"
                 placeholder="Buscar usuario"
+                (keyup)="search(txtTerm.value)"
+                #txtTerm
         >
       </div>
     </div>
@@ -32,7 +34,7 @@
                             <th class="w100">Avatar</th>
                             <th>Email</th>
                             <th>Name</th>
-                            <th class="w100">Role</th>
+                            <th class="w140">Role</th>
                             <th class="w100">Auth</th>
                             <th class="text-nowrap w100">Action</th>
                         </tr>
@@ -40,27 +42,45 @@
                     <tbody>
                         <tr *ngFor="let user of users">
                             <td class="text-center">
-                              <img class="avatar" src="{{user.imageUrl}}" alt="">
+                              <img class="avatar cursor"
+                                    src="{{user.imageUrl}}"
+                                    alt=""
+                                    (click)="openModal(user)">
                             </td>
                             <td>{{user.email}}</td>
                             <td>{{user.name}}</td>
-                            <td>{{user.role}}</td>
+                            <td>
+                              <select class="form-control"
+                                      [(ngModel)]="user.role"
+                                      (change)="changeRole(user)"
+                              >
+                                <option value="ADMIN_ROLE">Admin</option>
+                                <option value="USER_ROLE">User</option>
+                              </select>
+                            </td>
                             <td>
                               <span *ngIf="!user.google" class="label label-danger">Email</span>
                               <span *ngIf="user.google" class="label label-info">Google</span>
                             </td>
                             <td class="text-nowrap text-center">
-                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                <a  data-toggle="tooltip"
+                                    data-original-title="Close"
+                                    class="cursor"
+                                    (click)="deleteUser(user)"
+                                >
+                                  <i class="fa fa-close text-danger"></i>
+                                </a>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-secondary" (click)="changePage(-5)">Before</button>
-            &nbsp;
-            <button class="btn btn-secondary" (click)="changePage(+5)">Next</button>
+            <div *ngIf="txtTerm.value.length === 0">
+              <button class="btn btn-secondary" (click)="changePage(-5)">Before</button>
+              &nbsp;
+              <button class="btn btn-secondary" (click)="changePage(+5)">Next</button>
+            </div>
         </div>
     </div>
   </div>

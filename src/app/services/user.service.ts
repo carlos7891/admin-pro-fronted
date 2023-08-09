@@ -53,11 +53,7 @@ export class UserService {
     if(!formData.password){
       delete formData.password;
     }
-    return this.http.put(`${this.baseUrl}/users/${this.user.uid}`, formData,{
-      headers: {
-        'x-token':this.token
-      }
-    })
+    return this.http.put(`${this.baseUrl}/users/${this.user.uid}`, formData, this.headers)
   }
 
   login( formData: LoginForm){
@@ -107,7 +103,6 @@ export class UserService {
   logout(){
     localStorage.removeItem('token');
     if(this.user.google){
-      console.log('outgoogle')
       google.accounts.id.revoke(this.user.email, () => {})
     }
     this.router.navigateByUrl('/login');
@@ -127,6 +122,16 @@ export class UserService {
           })
         )
   }
+
+  deleteUser(user: User){
+    const url = `${this.baseUrl}/users/${user.uid}`;
+    return this.http.delete<UsersResponse>(url, this.headers)
+  }
+
+  updateUserData(user: User){
+    return this.http.put(`${this.baseUrl}/users/${user.uid}`, user, this.headers)
+  }
+
 
 
 }

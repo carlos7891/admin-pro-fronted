@@ -10,11 +10,39 @@
     cursor:pointer;
 }
 
+.w60 {
+  width: 60px;
+}
+
 .w100 {
   width: 100px;
+}
+
+.w140 {
+  width: 140px;
 }
 
 .avatar {
   width: 30px;
   border-radius: 100%;
+}
+
+.modal-background-img{
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  left: 0px;
+  width: 100%;
+  z-index: 9999;
+}
+
+.hiden{
+  display: none;
+}
+
+.profile-img {
+  height: 200px;
+  width: 200px;
+  margin-bottom: 5px;
 }

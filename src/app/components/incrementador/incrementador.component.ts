@@ -43,7 +43,6 @@ export class IncrementadorComponent implements OnInit {
     }else if( value < 0){
       this.progress = 0
     }
-    console.log(value.target.value)
   }
 
 }

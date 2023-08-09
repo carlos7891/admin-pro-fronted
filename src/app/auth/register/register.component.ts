@@ -38,7 +38,6 @@ export class RegisterComponent {
     }
     this.userService.createUser(this.registerForm.value).subscribe({
       next: resp => {
-        console.log(resp)
         this.router.navigate(['/dashboard']);
       },
       error: err => {

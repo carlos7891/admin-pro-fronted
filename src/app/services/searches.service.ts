@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,12 @@ export class SearchesService {
     }
   }
 
+  transformUsers( results:any[] ):User[]{
+    return results.map(
+      user => new User(user.name, user.email, '' , user.img, user.google, user.role, user.uid)
+    )
+  }
+
   constructor(
     private http:HttpClient
   ) { }
@@ -28,5 +36,15 @@ export class SearchesService {
   search( type:'users' |'doctors' | 'hospitals', term:string ){
     const url = `${this.baseUrl}/search/collection/${type}/${term}`;
     return this.http.get(url, this.headers)
+      .pipe(
+        map((resp:any) => {
+          switch (type) {
+            case 'users':
+              return this.transformUsers(resp.result);
+            default:
+              return [];
+          }
+        })
+      );
   }
 }
