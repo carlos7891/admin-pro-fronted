@@ -41,6 +41,10 @@ export class SearchesService {
           switch (type) {
             case 'users':
               return this.transformUsers(resp.result);
+            case 'hospitals':
+              return resp.result;
+            case 'doctors':
+              return resp.result;
             default:
               return [];
           }
