@@ -13,6 +13,7 @@ import { UsersComponent } from './maintenance/users/users.component';
 import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
 import { DoctorsComponent } from './maintenance/doctors/doctors.component';
 import { DoctorComponent } from './maintenance/doctors/doctor.component';
+import { SearchsComponent } from './searchs/searchs.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         data: { title:'User Profile' }
+      },
+      {
+        path: 'search/:term',
+        component: SearchsComponent,
+        data: { title:'Search' }
       },
 
       //Maintenance
