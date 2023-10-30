@@ -1,1 +1,85 @@
-<p>searchs works!</p>
+<div class="row owl-animated fadeIn fast">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Users</h3>
+        <div class="alert alert-info animate fadeIn fast" 
+              *ngIf="users.length === 0">
+          <p class="mb-0">There is not users with that term</p>
+        </div>
+        <table class="table" *ngIf="users.length > 0">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users" class="animate fadeIn fast">
+              <td>
+                <img [src]="user.img! | imagen:'users'" alt="" class="w60">
+              </td>
+              <td>{{user.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Doctors</h3>
+        <div class="alert alert-info animate fadeIn fast" 
+              *ngIf="doctors.length === 0">
+          <p class="mb-0">There is not doctors with that term</p>
+        </div>
+        <table class="table" *ngIf="doctors.length > 0">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doctor of doctors" 
+                  class="animate fadeIn fast">
+              <img [src]="doctor.img! | imagen:'doctors'" alt="" class="w60">
+              <td>
+                <a [routerLink]="['/dashboard/doctor', doctor._id]">
+                  {{doctor.name}}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Hospitals</h3>
+        <div class="alert alert-info animate fadeIn fast" 
+              *ngIf="hospitals.length === 0">
+          <p class="mb-0">There is not hospitals with that term</p>
+        </div>
+        <table class="table" *ngIf="hospitals.length > 0">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitals" 
+                  class="animate fadeIn fast">
+              <img [src]="hospital.img! | imagen:'hospitals'" alt="" class="w60">
+              <td>{{hospital.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

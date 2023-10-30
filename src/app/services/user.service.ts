@@ -35,6 +35,15 @@ export class UserService {
     }
   }
 
+  get role():'ADMIN_ROLE' |'USER_ROLE' {
+    return this.user.role!
+  }
+
+  saveLocalStorage(token:string, menu:any){
+    localStorage.setItem('token', token );
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   constructor(
     private http:HttpClient,
     private router: Router
@@ -44,7 +53,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/users`, formData)
       .pipe(
         tap( (resp: any) => {
-          localStorage.setItem('token', resp.token )
+          this.saveLocalStorage(resp.token, resp.menu)
         })
       )
   }
@@ -60,7 +69,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/login`, formData)
       .pipe(
         tap( (resp: any) => {
-          localStorage.setItem('token', resp.token )
+          this.saveLocalStorage(resp.token, resp.menu)
         })
       )
   }
@@ -69,8 +78,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/login/google`, {token})
       .pipe(
         tap( (resp: any) => {
-          localStorage.setItem('token', resp.token )
-          localStorage.setItem('email', resp.email )
+          this.saveLocalStorage(resp.token, resp.menu)
         })
       )
   }
@@ -87,7 +95,7 @@ export class UserService {
         map( (resp: any) => {
           const {name, email, role, google, img, uid } = resp.user
           this.user = new User(name, email, '', img, google, role, uid)
-          localStorage.setItem('token', resp.token )
+          this.saveLocalStorage(resp.token, resp.menu)
           if (resp.ok){
             return true
           }
@@ -102,6 +110,7 @@ export class UserService {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     if(this.user.google){
       google.accounts.id.revoke(this.user.email, () => {})
     }

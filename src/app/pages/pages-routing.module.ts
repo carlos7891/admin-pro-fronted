@@ -14,6 +14,7 @@ import { HospitalsComponent } from './maintenance/hospitals/hospitals.component'
 import { DoctorsComponent } from './maintenance/doctors/doctors.component';
 import { DoctorComponent } from './maintenance/doctors/doctor.component';
 import { SearchsComponent } from './searchs/searchs.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -65,6 +66,7 @@ const routes: Routes = [
       //Maintenance
       {
         path: 'users',
+        canActivate: [ AdminGuard ],
         component: UsersComponent,
         data: { title:'Users' }
       },

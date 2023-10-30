@@ -24,6 +24,9 @@ export class HeaderComponent {
   }
 
   search(term: string){
+    if(term.length === 0){
+      return;
+    }
     this.router.navigateByUrl(`/dashboard/search/${term}`)
   }
 }

@@ -51,4 +51,9 @@ export class SearchesService {
         })
       );
   }
+
+  globalSearch(term: string){
+    const url = `${this.baseUrl}/search/${term}`;
+    return this.http.get(url, this.headers);
+  }
 }
